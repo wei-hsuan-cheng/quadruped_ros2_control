@@ -108,6 +108,11 @@ To config the path for the cppAD shared library, you can modify the `modelFolder
 #### Mujoco Simulation
 > **Warm Reminder**: You need to launch [Unitree Mujoco C++ Simulation](https://github.com/legubiao/unitree_mujoco) before launch the controller.
 ```bash
+cd <your_path>/unitree_mujoco/simulate/build
+./unitree_mujoco -r go2 -s scene_terrain.xml
+```
+
+```bash
 source ~/ros2_ws/install/setup.bash
 ros2 launch ocs2_quadruped_controller mujoco.launch.py pkg_description:=go2_description
 ```

@@ -38,7 +38,7 @@ sqp
   printSolverStatistics                 true
   printSolverStatus                     false
   printLinesearch                       false
-  useFeedbackPolicy                     false
+  useFeedbackPolicy                     true
   integratorType                        RK2
   threadPriority                        60
 }
