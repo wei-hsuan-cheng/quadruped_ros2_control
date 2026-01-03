@@ -13,7 +13,12 @@ find_package(rclcpp REQUIRED)
 find_package(control_input_msgs REQUIRED)
 
 add_executable(keyboard_input src/KeyboardInput.cpp)
+add_executable(keyboard_input_const src/KeyboardInputConst.cpp)
 target_include_directories(keyboard_input
+        PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+        "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
+target_include_directories(keyboard_input_const
         PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
@@ -22,9 +27,15 @@ ament_target_dependencies(
         rclcpp
         control_input_msgs
 )
+ament_target_dependencies(
+        keyboard_input_const PUBLIC
+        rclcpp
+        control_input_msgs
+)
 
 install(TARGETS
         keyboard_input
+        keyboard_input_const
         DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
