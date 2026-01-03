@@ -38,7 +38,23 @@ namespace ocs2::legged_robot
 
         const std::string package_share_directory = ament_index_cpp::get_package_share_directory(robot_pkg_);
         urdf_file_ = package_share_directory + "/urdf/robot.urdf";
-        task_file_ = package_share_directory + "/config/ocs2/task.info";
+
+        // Allow overriding the task file via ROS param; default keeps the original task.info
+        std::string task_file_param = "config/ocs2/task.info";
+        if (!node_->has_parameter("task_file"))
+        {
+            node_->declare_parameter("task_file", task_file_param);
+        }
+        task_file_param = node_->get_parameter("task_file").as_string();
+        if (!task_file_param.empty() && task_file_param.front() == '/')
+        {
+            task_file_ = task_file_param;
+        }
+        else
+        {
+            task_file_ = package_share_directory + "/" + task_file_param;
+        }
+
         reference_file_ = package_share_directory + "/config/ocs2/reference.info";
         gait_file_ = package_share_directory + "/config/ocs2/gait.info";
 
