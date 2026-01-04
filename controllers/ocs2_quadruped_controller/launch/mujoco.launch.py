@@ -10,6 +10,7 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 package_controller = "ocs2_quadruped_controller"
+package_description = "go2_description"
 
 def launch_setup(context, *args, **kwargs):
     package_description = context.launch_configurations['pkg_description']
@@ -26,7 +27,11 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
 
-    rviz_config_file = os.path.join(get_package_share_directory(package_controller), "config", "visualize_ocs2.rviz")
+    rviz_config_file = os.path.join(get_package_share_directory(package_description), 
+                                    "config", 
+                                    "ocs2",
+                                    "go2.rviz",
+                                    )
 
     rviz = Node(
         package='rviz2',
