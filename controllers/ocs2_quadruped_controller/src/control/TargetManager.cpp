@@ -27,6 +27,12 @@ namespace ocs2::legged_robot
         loadData::loadCppDataType(reference_file, "targetRotationVelocity", target_rotation_velocity_);
         loadData::loadCppDataType(reference_file, "targetDisplacementVelocity", target_displacement_velocity_);
 
+        if (!node_->has_parameter("rotate_cmd_to_world"))
+        {
+            node_->declare_parameter("rotate_cmd_to_world", rotate_cmd_to_world_);
+        }
+        rotate_cmd_to_world_ = node_->get_parameter("rotate_cmd_to_world").as_bool();
+
         twist_sub_ = node_->create_subscription<geometry_msgs::msg::Twist>(
             "/cmd_vel", 10, [this](const geometry_msgs::msg::Twist::SharedPtr msg)
             {
@@ -61,8 +67,16 @@ namespace ocs2::legged_robot
         }
 
         const vector_t currentPose = observation.state.segment<6>(6);
-        const Eigen::Matrix<scalar_t, 3, 1> zyx = currentPose.tail(3);
-        vector_t cmd_vel_rot = getRotationMatrixFromZyxEulerAngles(zyx) * cmdGoal.head(3);
+        Eigen::Vector3d cmd_vel_rot = Eigen::Vector3d::Zero();
+        if (rotate_cmd_to_world_)
+        {
+            const Eigen::Matrix<scalar_t, 3, 1> zyx = currentPose.tail(3);
+            cmd_vel_rot = getRotationMatrixFromZyxEulerAngles(zyx) * cmdGoal.head<3>();
+        }
+        else
+        {
+            cmd_vel_rot = cmdGoal.head<3>();
+        }
 
         const vector_t targetPose = [&]
         {
@@ -79,8 +93,8 @@ namespace ocs2::legged_robot
         const scalar_t targetReachingTime = observation.time + time_to_target_;
         auto trajectories =
             targetPoseToTargetTrajectories(targetPose, observation, targetReachingTime);
-        trajectories.stateTrajectory[0].head(3) = cmd_vel_rot;
-        trajectories.stateTrajectory[1].head(3) = cmd_vel_rot;
+        // trajectories.stateTrajectory[0].head(3) = cmd_vel_rot;
+        // trajectories.stateTrajectory[1].head(3) = cmd_vel_rot;
 
         referenceManagerPtr_->setTargetTrajectories(std::move(trajectories));
     }

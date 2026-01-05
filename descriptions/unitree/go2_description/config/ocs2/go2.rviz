@@ -6,12 +6,11 @@ Panels:
       Expanded:
         - /Status1
         - /TF1/Frames1
-        - /Optimized Trajectory1
+        - /Desired Trajectory1/Base Trajectory1/Status1
         - /Optimized Trajectory1/State Trajectory1
-        - /Current1
         - /Current1/Support Polygon1
       Splitter Ratio: 0.5
-    Tree Height: 305
+    Tree Height: 387
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -301,11 +300,82 @@ Visualization Manager:
       Visual Enabled: true
     - Class: rviz_common/Group
       Displays:
+        - Class: rviz_default_plugins/Marker
+          Enabled: true
+          Name: Base Trajectory
+          Namespaces:
+            "": true
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /legged_robot/desiredBaseTrajectory
+          Value: true
+        - Class: rviz_default_plugins/Marker
+          Enabled: true
+          Name: LF
+          Namespaces:
+            "": true
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /legged_robot/desiredFeetTrajectory/LF
+          Value: true
+        - Class: rviz_default_plugins/Marker
+          Enabled: true
+          Name: RF
+          Namespaces:
+            "": true
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /legged_robot/desiredFeetTrajectory/RF
+          Value: true
+        - Class: rviz_default_plugins/Marker
+          Enabled: true
+          Name: LH
+          Namespaces:
+            "": true
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /legged_robot/desiredFeetTrajectory/LH
+          Value: true
+        - Class: rviz_default_plugins/Marker
+          Enabled: true
+          Name: RH
+          Namespaces:
+            "": true
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /legged_robot/desiredFeetTrajectory/RH
+          Value: true
+      Enabled: true
+      Name: Desired Trajectory
+    - Class: rviz_common/Group
+      Displays:
         - Class: rviz_default_plugins/MarkerArray
           Enabled: true
           Name: State Trajectory
           Namespaces:
-            {}
+            CoM Trajectory: true
+            EE Trajectories: true
+            Future footholds: true
           Topic:
             Depth: 5
             Durability Policy: Volatile
@@ -378,7 +448,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.1228039264678955
+      Distance: 1.1695679426193237
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -404,7 +474,7 @@ Window Geometry:
   Height: 670
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd000000040000000000000208000002f4fc020000000afb0000001200530065006c0065006300740069006f006e000000006e000000b00000005c00fffffffb0000001e0054006f006f006c002000500072006f0070006500720074006900650073000000006e000004770000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000003b000002f4000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006101000001be000001900000000000000000fb000000100044006900730070006c006100790073000000006e00000247000000c700ffffff000000010000010f000002e2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730000000028000002e2000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006400000003efc0100000002fb0000000800540069006d00650000000000000006400000025300fffffffb0000000800540069006d00650100000000000004500000000000000000000003f90000024800000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000020800000248fc020000000afb0000001200530065006c0065006300740069006f006e000000006e000000b00000005c00fffffffb0000001e0054006f006f006c002000500072006f0070006500720074006900650073000000006e000004770000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000003b00000248000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006101000001be000001900000000000000000fb000000100044006900730070006c006100790073000000006e00000247000000c700ffffff000000010000010f000002e2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730000000028000002e2000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006400000003efc0100000002fb0000000800540069006d00650000000000000006400000025300fffffffb0000000800540069006d00650100000000000004500000000000000000000003f90000024800000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -414,5 +484,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1017
-  X: -31
+  X: 70
   Y: 455

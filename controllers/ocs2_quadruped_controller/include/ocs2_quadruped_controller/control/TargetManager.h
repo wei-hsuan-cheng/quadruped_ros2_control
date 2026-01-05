@@ -65,6 +65,9 @@ namespace ocs2::legged_robot
         scalar_t time_to_target_{};
         scalar_t target_displacement_velocity_{};
         scalar_t target_rotation_velocity_{};
+
+        // If true (default), rotate body-frame commands into world frame. If false, keep body-frame velocities as-is.
+        bool rotate_cmd_to_world_{true};
     };
 }
 
